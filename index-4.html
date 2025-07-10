@@ -1,0 +1,154 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><html>
+<head>
+  <title>*** ADVOKÁTNÍ KANCELÁŘ FRÁŇA A PARTNEŘI ***</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style>
+    .rainbow {
+      background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta, red);
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rainbow 5s infinite;
+    }
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+    }
+  </style>
+</head>
+<body bgcolor="#FF00FF" text="#00FF00" link="#FFFF00" vlink="#FF0000" alink="#00FFFF">
+  <table width="800" align="center" border="10" bgcolor="#FFFF00" cellpadding="15" cellspacing="0">
+    <tr>
+      <td align="center" bgcolor="#0000FF">
+        <font face="Comic Sans MS" size="7" color="#00FFFF">
+          <blink><span class="rainbow">*** ADVOKÁTNÍ KANCELÁŘ FRÁŇA A PARTNEŘI ***</span></blink>
+        </font>
+        <p><img src="https://ezgif.com/images/format-demo/stars.gif" alt="Neon Stars" border="3" width="200"></p>
+        <marquee behavior="alternate" bgcolor="#FF0000"><font color="#00FFFF" size="5"><blink>ZALOŽENO 1990 - VAŠE PRÁVNÍ JISTOTA!</blink></font></marquee>
+        <p><img src="https://ezgif.com/images/format-demo/flame.gif" alt="Flame GIF" width="100"></p>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#00FFFF">
+        <font face="Arial" size="4" color="#FF0000">
+          <b><blink><span class="rainbow">NAVIGACE</span></blink></b><br>
+          <a href="#o-nas"><u><blink>O nás</blink></u></a><br>
+          <a href="#sluzby"><u><blink>Služby</blink></u></a><br>
+          <a href="#kontakt"><u><blink>Kontakt</blink></u></a><br>
+          <a href="http://www.cak.cz"><u><blink>Česká advokátní komora</blink></u></a><br>
+          <a href="mailto:recepce@akfrana.cz"><u><blink>E-mail</blink></u></a><br>
+          <p><img src="https://ezgif.com/images/format-demo/mailbox.gif" alt="Mailbox GIF" width="50"></p>
+        </font>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFFF">
+        <font face="Times New Roman" size="6" color="#FF00FF">
+          <a name="o-nas"><h2><blink><span class="rainbow">O NÁS</span></blink></h2></a>
+        </font>
+        <font face="Arial" size="3" color="#0000FF">
+          <marquee direction="right" bgcolor="#00FF00"><font color="#FF0000"><blink>Vítejte na stránkách Advokátní kanceláře Fráňa a partneři!</blink></font></marquee>
+          <p>Jsme nástupci kanceláře Hartmann, Jelínek, Fráňa a partneři, působící od roku <blink>1990</blink>. Nabízíme <blink>PROFESIONÁLNÍ</blink> právní služby s osobním přístupem!</p>
+          <p>Náš tým tvoří <u><blink>zkušení právníci</blink></u> připraveni řešit Vaše právní záležitosti.</p>
+          <p><img src="https://ezgif.com/images/format-demo/justice.gif" alt="Justice GIF" width="100"></p>
+        </font>
+
+        <font face="Times New Roman" size="6" color="#FF00FF">
+          <a name="sluzby"><h2><blink><span class="rainbow">SLUŽBY</span></blink></h2></a>
+        </font>
+        <font face="Arial" size="3" color="#0000FF">
+          <marquee behavior="scroll" bgcolor="#FFFF00"><font color="#FF00FF"><blink>Specializujeme se na:</blink></font></marquee>
+          <ul>
+            <li><b><blink>Občanské právo</blink></b></li>
+            <li><b><blink>Obchodní právo</blink></b></li>
+            <li><b><blink>Pracovní právo</blink></b></li>
+            <li><b><blink>Trestní právo</blink></b></li>
+            <li><b><blink>Rodinné právo</blink></b></li>
+            <li><b><blink>Správní此处právo</blink></b></li>
+          </ul>
+          <p><img src="https://ezgif.com/images/format-demo/scroll.gif" alt="Scroll GIF" width="80"></p>
+        </font>
+
+        <font face="Times New Roman" size="6" color="#FF00FF">
+          <a name="kontakt"><h2><blink><span class="rainbow">KONTAKT</span></blink></h2></a>
+        </font>
+        <font face="Arial" size="3" color="#0000FF">
+          <p><b>Adresa:</b> <blink>Malé náměstí 124, 500 03 Hradec Králové</blink></p>
+          <p><b>Telefon:</b> <blink>+420 495 534 081</blink></p>
+          <p><b>E-mail:</b> <a href="mailto:recepce@akfrana.cz"><u><blink>recepce@akfrana.cz</blink></u></a></p>
+          <p><b>Tým:</b></p>
+          <ul>
+            <li><blink>JUDr. Pavel Fráňa, Ph.D.</blink> - <a href="mailto:frana@akfrana.cz"><u>frana@akfrana.cz</u></a></li>
+            <li><blink>JUDr. Jiří Janeba</blink> - <a href="mailto:janeba@akfrana.cz"><u>janeba@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Veronika Kaiserová</blink> - <a href="mailto:kaiserova@akfrana.cz"><u>kaiserova@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Martin Koudele</blink> - <a href="mailto:koudele@akfrana.cz"><u>koudele@akfrana.cz</u></a></li>
+            <li><blink>JUDr. Ondřej Moravec, Ph.D.</blink> - <a href="mailto:moravec@akfrana.cz"><u>moravec@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Lukáš Smutný</blink> - <a href="mailto:smutny@akfrana.cz"><u>smutny@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Michal Špaček</blink> - <a href="mailto:spacek@akfrana.cz"><u>spacek@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Filip Černý</blink> - <a href="mailto:cerny@akfrana.cz"><u>cerny@akfrana.cz</u></a></li>
+            <li><blink>JUDr. Jiří Dobýval</blink> - <a href="mailto:dobyval@akfrana.cz"><u>dobyval@akfrana.cz</u></a></li>
+            <li><blink>JUDr. Renata Dobývalová</blink> - <a href="mailto:dobyvalova@akfrana.cz"><u>dobyvalova@akfrana.cz</u></a></li>
+            <li><blink>Mgr. et Mgr. Petra Petrů</blink> - <a href="mailto:petru@akfrana.cz"><u>petru@akfrana.cz</u></a></li>
+            <li><blink>JUDr. Petra Sedláčková</blink> - <a href="mailto:sedlackova@akfrana.cz"><u>sedlackova@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Michaela Čejchanová</blink> - <a href="mailto:cejchanova@akfrana.cz"><u>cejchanova@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Matylda Folberger</blink> - <a href="mailto:folberger@akfrana.cz"><u>folberger@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Jan Gebauer</blink> - <a href="mailto:gebauer@akfrana.cz"><u>gebauer@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Viktor Gilar</blink> - <a href="mailto:gilar@akfrana.cz"><u>gilar@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Ondřej Hájek</blink> - <a href="mailto:hajek@akfrana.cz"><u>hajek@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Jiří Janáček</blink> - <a href="mailto:janacek@akfrana.cz"><u>janacek@akfrana.cz</u></a></li>
+            <li><blink>Mgr. Matěj Kučera</blink> - <a href="mailto:kucera@akfrana.cz"><u>kucera@akfrana.cz</u></a></li>
+          </ul>
+          <p><img src="https://ezgif.com/images/format-demo/phone.gif" alt="Phone GIF" width="80"></p>
+        </font>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#00FF00">
+        <font face="Comic Sans MS" size="3" color="#FF0000">
+          <p><blink><span class="rainbow">© 2025 Advokátní kancelář Fráňa a partneři</span></blink></p>
+          <p><img src="https://ezgif.com/images/format-demo/construction.gif" alt="Construction GIF" width="100"></p>
+          <p><b><blink>VISITOR COUNTER:</blink></b> <img src="https://ezgif.com/images/format-demo/counter.gif" alt="Hit Counter" width="100"></p>
+        </font>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
